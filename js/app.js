@@ -3,6 +3,7 @@ const users = document.getElementById('users')
 const templateuser = document.getElementById('template-user').content
 const fragment = document.createDocumentFragment()
 const btnSave = document.getElementById('btnSave')
+let idUpdate = null
 
 // Eventos de mi pagina
 document.addEventListener('DOMContentLoaded', () => {
@@ -76,9 +77,26 @@ const drawUsers = (items) => {
         const btnDelete = clone.querySelector('.btn-danger')
         btnDelete.addEventListener('click', () => {
             console.log('@@@ espero funcione => ', btnDelete.dataset.id)
+            deleteUser(btnDelete.dataset.id)
+        })
+
+        // Crear boton para actualizar
+        const btnUpdate = clone.querySelector('.btn-warning')
+        btnUpdate.addEventListener('click', () => {
+            idUpdate = btnUpdate.dataset.id
+            window.location.replace(`/update-user.html`)
         })
 
         fragment.appendChild(clone)
     })
     users.appendChild(fragment)
+}
+
+const deleteUser = async (id) => {
+    const res = await fetch(`http://localhost:9000/delete/${id}`)
+    const result = await res.json()
+    // console.log('@@@ result => ', result)
+    if (result.msg === 'user deleted') {
+        loadData()
+    }
 }
