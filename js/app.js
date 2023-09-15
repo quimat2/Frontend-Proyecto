@@ -84,7 +84,7 @@ const drawUsers = (items) => {
         const btnUpdate = clone.querySelector('.btn-warning')
         btnUpdate.addEventListener('click', () => {
             idUpdate = btnUpdate.dataset.id
-            window.location.replace(`/update-user.html`)
+            window.location.replace(`/update-user.html?id=${idUpdate}`)
         })
 
         fragment.appendChild(clone)
