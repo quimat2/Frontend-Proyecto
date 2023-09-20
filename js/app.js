@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadData()
 })
 
-btnSave.addEventListener('click', (e) => {
-    e.preventDefault()
+btnSave.addEventListener('click', () => {
     sendData()
 })
 
