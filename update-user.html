@@ -13,6 +13,15 @@
 </head>
 
 <body>
+
+    <header>
+        <h2>Nombre completo: Héctor Argel Genezareth Meza Rios</h2>
+        <p>NUA: 436281</p>
+        <p>Correo institucional: <a href="mailto:hag.mezarios@ugto.mx">hag.mezarios@ugto.mx</a></p>
+        <p>Materia: Lenguajes modernos de programación</p>
+        <p>Universidad de Guanajuato</p>
+    </header>
+
     <div class="container">
         <div>
             <!--Form para los usuarios-->
@@ -53,9 +62,19 @@
                     <br>
                     <input type="text" id="zipcode" style="width: 100%!important;">
                 </p>
-                <button class="btn btn-success" style="width: 100%!important;" id="btnUpdate">
-                    Update
-                </button>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-success w-100" id="btnUpdate">
+                            Update
+                        </button>
+                    </div>
+                    |
+                    <div class="col">
+                        <button class="btn btn-danger w-100" id="btnCancel">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

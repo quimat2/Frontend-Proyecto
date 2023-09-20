@@ -1,48 +1,59 @@
 const btnUpdate = document.getElementById('btnUpdate')
+const btnCancel = document.getElementById('btnCancel') // Agregamos el botón "Cancel"
 let idUpdate
 let id
+
 document.addEventListener('DOMContentLoaded', () => {
     idUpdate = location.search.substring(1).split("&")
     id = idUpdate[0].substring(3, idUpdate[0].length)
     getUser(id)
-    // console.log('@@@ idUpdate => ', idUpdate)
+})
+
+btnCancel.addEventListener('click', (e) => {
+    e.preventDefault()
+    // Redirigir al index sin hacer cambios
+    window.location.replace('/')
 })
 
 btnUpdate.addEventListener('click', (e) => {
-    const firstname = document.getElementById('firstname').value
-    const lastname = document.getElementById('lastname').value
-    const address = document.getElementById('address').value // Corrección aquí
-    const phone = document.getElementById('phone').value
-    const city = document.getElementById('city').value
-    const cp = document.getElementById('zipcode').value
-
-    if (firstname.trim().length !== 0 && lastname.trim().length !== 0) {
-        const obj = {
-            id,
-            firstname,
-            lastname,
-            address, // Corrección aquí
-            phone,
-            city,
-            cp
-        }
-
-        fetch('http://localhost:9000/update', {
-            method: 'POST',
-            body: JSON.stringify(obj),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8'
-            }
-        }).then(async (res) => {
-            const result = await res.json()
-            if (result.msg === 'success') {
-                window.location.replace('/')
-            }
-        }).catch((error) => {
-            console.log('@@@@@ error => ', error)
-        })
-    }
     e.preventDefault()
+    // Agregar confirmación antes de actualizar
+    const confirmation = confirm('¿Seguro que deseas actualizar este usuario?')
+    if (confirmation) {
+        const firstname = document.getElementById('firstname').value
+        const lastname = document.getElementById('lastname').value
+        const address = document.getElementById('address').value // Corrección aquí
+        const phone = document.getElementById('phone').value
+        const city = document.getElementById('city').value
+        const cp = document.getElementById('zipcode').value
+
+        if (firstname.trim().length !== 0 && lastname.trim().length !== 0) {
+            const obj = {
+                id,
+                firstname,
+                lastname,
+                address, // Corrección aquí
+                phone,
+                city,
+                cp
+            }
+
+            fetch('http://localhost:9000/update', {
+                method: 'POST',
+                body: JSON.stringify(obj),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8'
+                }
+            }).then(async (res) => {
+                const result = await res.json()
+                if (result.msg === 'success') {
+                    window.location.replace('/')
+                }
+            }).catch((error) => {
+                console.log('@@@@@ error => ', error)
+            })
+        }
+    }
 })
 
 const getUser = async (id) => {
@@ -53,7 +64,6 @@ const getUser = async (id) => {
     } else {
         alert('User Not Found')
     }
-    console.log('@@@ result => ', result)
 }
 
 const loadDataUser = (user) => {
